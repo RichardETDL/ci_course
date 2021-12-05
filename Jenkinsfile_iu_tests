@@ -1,17 +1,21 @@
+pipeline {
     agent any
-    parameters {
-        string(name: 'ENVIRONMENT', defaultValue: 'DEV', description: 'Testing environment')
+    triggers {
+        pollSCM('*/1 * * * *')
     }
+    parameters {
+        string(name: 'ENV', defaultValue: 'DEV', description: 'TEST ENV')
+                }
     stages { 
         stage('build') {
             steps {
-                echo "Running UI tests on ${params.ENVIRONMENT} environment"
+                echo "Test on ${params.PERSON} env"
                 script {
                     def browsers = ['chrome', 'firefox', 'safari']
                     for (int i = 0; i < browsers.size(); ++i) {
-                        echo "Running UI tests on ${params.ENVIRONMENT} with ${browsers[i]} browser"
-                    }
-                } 
+                        echo "Testing the ${params.PERSON} with ${browsers[i]} browser"
+                }
             }
         }
     }
+    }   
