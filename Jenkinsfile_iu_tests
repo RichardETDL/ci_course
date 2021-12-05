@@ -10,6 +10,11 @@ pipeline {
         stage('build') {
             steps {
                 echo "Test on ${params.PERSON} env"
+                script {
+                    def browsers = ['chrome', 'firefox', 'safari']
+                    for (int i = 0; i < browsers.size(); ++i) {
+                        echo "Testing the ${params.PERSON} with ${browsers[i]} browser"
+                }
             }
         }
     }
