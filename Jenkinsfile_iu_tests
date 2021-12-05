@@ -3,11 +3,13 @@ pipeline {
     triggers {
         pollSCM('*/1 * * * *')
     }
+    parameters {
+        string(name: 'ENV', defaultValue: 'DEV', description: 'TEST ENV')
+                }
     stages { 
         stage('build') {
             steps {
-                sh "docker build -t api_test_base . -f Dockerfile_base"
-                build job: "docker_executor"
+                echo "Test on ${params.PERSON} env"
             }
         }
     }
