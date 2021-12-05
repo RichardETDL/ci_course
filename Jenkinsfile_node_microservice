@@ -11,34 +11,54 @@ pipeline {
         }
         stage('deploy-dev') {
             steps {
-                echo "Depl node DEV"
+                script{
+                    deploy("dev")
+                }
             }
         }
         stage('test-dev') {
             steps {
-                echo "Test node DEV"
+                script{
+                    test("dev")
+                }
             }
         }
         stage('deploy-int') {
             steps {
-                echo "Depl node int"
+                script{
+                    deploy("int")
+                }
             }
         }
         stage('test-int') {
             steps {
-                echo "Test node int"
+                script{
+                    test("int")
+                }
             }
         }
         stage('deploy-prd') {
             steps {
-                echo "Depl node prd"
+                script{
+                    deploy("prd")
+                }
             }
         }
         stage('test-prd') {
             steps {
-                echo "Test node prd"
+                script{
+                    test("prd")
+                }
             }
         }
+    }
+
+    def deploy(String env){
+        echo "Depl node ${env} triggered}"
+    }
+
+    def test(String env){
+        echo "Test node ${env}...}"
     }
     
 }   
