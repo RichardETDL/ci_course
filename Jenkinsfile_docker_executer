@@ -4,9 +4,9 @@ pipeline {
         pollSCM('*/1 * * * *')
     }
     stages {
-        stage('Example') {
+        stage('exe') {
             steps {
-                echo 'Hello World'
+                sh "docker build -t api_test_executer . -f Dockerfile_base"
             }
         }
     }
