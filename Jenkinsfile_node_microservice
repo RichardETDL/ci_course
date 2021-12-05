@@ -61,4 +61,8 @@ pipeline {
 
     def test(String env){
         echo "Test node ${env}...}"
+        sh "docker run --network=host -d -t --name api_tests_executor_${env} api_tests_executor:latest"
+        sh "docker exec api_tests_executor_${env} cucumber --tags=@${env} --format html --out test-output/report.html"
+        sh "docker cp api_tests_executor_${env}:/usr/src/api-tests/test-output/report.html report_${env}.html"
+        sh "docker rm -f api_tests_executor_${env}"
     }
