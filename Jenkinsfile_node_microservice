@@ -62,7 +62,11 @@ pipeline {
     def test(String environment){
     echo "Running tests to ${environment}.."
     sh "docker run --network=host -d -t --name api-test-executor-${environment} api-test-executor:latest"
-    sh "docker exec api-test-executor-${environment} cucumber --tags=@${environment} --format html --out test-output/report.html"
-    sh "docker cp api-test-executor-${environment}:/usr/src/api-tests/test-output/report.html report_${environment}.html"
+    try{
+        sh "docker exec api-test-executor-${environment} cucumber --tags=@${environment} --format html --out test-output/report.html"
+    }
+    finally{
+        sh "docker cp api-test-executor-${environment}:/usr/src/api-tests/test-output/report.html report_${environment}.html"
+    }
     sh "docker rm -f api-test-executor-${environment}"
 }
