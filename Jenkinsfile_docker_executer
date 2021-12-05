@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('exe') {
             steps {
-                sh "docker build -t api_test_executer . -f Dockerfile_base"
+                sh "docker build -t api_test_executer . -f Dockerfile_executer"
             }
         }
     }
