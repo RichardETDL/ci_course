@@ -6,8 +6,8 @@ pipeline {
     stages { 
         stage('build') {
             steps {
-               sh "docker build -t api_test_base . -f Dockerfile_base"
-                build job: "docker_executer"
+                sh "docker build -t api_test_base . -f Dockerfile_base"
+                build job: "docker_executor"
             }
         }
     }
