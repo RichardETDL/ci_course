@@ -59,10 +59,10 @@ pipeline {
         echo "Deployment to ${environment} triggered.."
         build job: "ui-tests", parameters: [string(name: "ENVIRONMENT", value: "${environment}")]}
 
-    def test(String env){
-        echo "Test node ${env}...}"
-        sh "docker run --network=host -d -t --name api_tests_executor_${env} api_tests_executor:latest"
-        sh "docker exec api_tests_executor_${env} cucumber --tags=@${env} --format html --out test-output/report.html"
-        sh "docker cp api_tests_executor_${env}:/usr/src/api-tests/test-output/report.html report_${env}.html"
-        sh "docker rm -f api_tests_executor_${env}"
-    }
+    def test(String environment){
+    echo "Running tests to ${environment}.."
+    sh "docker run --network=host -d -t --name api_test_executor_${environment} api_test_executor:latest"
+    sh "docker exec api_test_executor_${environment} cucumber --tags=@${environment} --format html --out test-output/report.html"
+    sh "docker cp api_test_executor_${environment}:/usr/src/api-tests/test-output/report.html report_${environment}.html"
+    sh "docker rm -f api_test_executor_${environment}"
+}
