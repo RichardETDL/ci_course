@@ -52,6 +52,8 @@ pipeline {
             }
         }
     }
+}   
+
 
     def deploy(String env){
         echo "Depl node ${env} triggered}"
@@ -60,5 +62,3 @@ pipeline {
     def test(String env){
         echo "Test node ${env}...}"
     }
-    
-}   
